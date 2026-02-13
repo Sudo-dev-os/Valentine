@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Ammu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #ff4d6d;
+            --secondary-color: #ffb3c1;
+            --bg-color: #fff0f3;
+            --text-color: #590d22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Great Vibes', cursive; }
+
+        /* --- UTILITY: ANIMATION CLASSES --- */
+        .hidden { display: none !important; }
+        
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 1s ease; 
+        }
+        
+        .visible { 
+            opacity: 1 !important; 
+            transform: translateY(0) !important; 
+        }
+
+        /* --- 1. LOGIN OVERLAY --- */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: radial-gradient(circle, #fff0f3 0%, #ffccd5 100%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.8s ease;
+        }
+
+        #login-screen h1 { font-size: 3.5rem; margin-bottom: 20px; color: var(--primary-color); }
+        
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+        }
+
+        input {
+            padding: 10px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 5px;
+            font-size: 1.2rem;
+            outline: none;
+            text-align: center;
+            width: 150px;
+        }
+
+        button.btn-main {
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 15px;
+        }
+
+        button.btn-main:hover { transform: scale(1.05); background-color: #c9184a; }
+        .error-msg { color: red; margin-top: 10px; font-size: 0.9rem; display: none; }
+
+        /* --- 2. HERO SECTION --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            position: relative;
+        }
+        
+        header::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(255, 240, 243, 0.6);
+            z-index: 1;
+        }
+
+        .hero-content { position: relative; z-index: 2; padding: 20px; }
+        .hero-content h1 { font-size: 4.5rem; color: var(--primary-color); text-shadow: 2px 2px 0px white; margin-bottom: 10px;}
+        .hero-content h2 { font-size: 3rem; color: #a4133c; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; margin-top: 10px; font-weight: 600;}
+
+        /* --- NEW: COUNTER SECTION --- */
+        #counter-section {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: white;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .time-box {
+            background: var(--bg-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+        .time-box span { display: block; font-size: 0.9rem; color: var(--text-color); font-weight: normal; }
+
+        /* --- 3. TIMELINE --- */
+        .section-title { text-align: center; font-size: 3.5rem; margin: 60px 0 40px; color: var(--primary-color); }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .timeline::after {
+            content: ''; position: absolute; width: 4px; background-color: var(--secondary-color);
+            top: 0; bottom: 0; left: 50%; margin-left: -2px;
+        }
+
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .date { font-weight: bold; color: var(--primary-color); font-size: 0.9rem;}
+        .content h3 { margin-bottom: 5px; font-size: 1.8rem; }
+
+        /* --- 4. FLIP CARDS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: transparent;
+            width: 100%;
+            height: 250px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            border-radius: 15px;
+        }
+
+        .card:hover .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .card-front { background-color: white; color: var(--text-color); border: 2px solid var(--bg-color); }
+        .card-back { background-color: var(--primary-color); color: white; transform: rotateY(180deg); font-family: 'Great Vibes', cursive; font-size: 1.8rem; line-height: 1.4; }
+        
+        .icon { font-size: 3rem; margin-bottom: 10px; display: block; }
+
+        /* --- 5. FINALE (BUTTON LOGIC) --- */
+        .finale {
+            text-align: center;
+            padding: 100px 20px;
+            background: white;
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .button-group { 
+            margin-top: 30px; 
+            position: relative; 
+            min-height: 150px; /* Space for movement */
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start;
+            gap: 30px; /* Space between buttons */
+        }
+        
+        .btn-yes {
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            background-color: #2dc653;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(45, 198, 83, 0.4);
+            position: relative; /* Stays in flow initially */
+            z-index: 100;
+        }
+        
+        .btn-yes:hover { transform: scale(1.1); }
+
+        .btn-no {
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            background-color: #d00000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            /* Initially static so it sits next to YES */
+            position: relative; 
+            z-index: 90;
+        }
+
+        #confetti {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999;
+        }
+
+        audio { display: none; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media screen and (max-width: 600px) {
+            .timeline::after { left: 31px; }
+            .container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .left::after, .right::after { left: 15px; }
+            .right { left: 0%; }
+            .hero-content h1 { font-size: 3.5rem; }
+            #timer { font-size: 1.5rem; }
+            .time-box { min-width: 60px; padding: 5px 10px; }
+            
+            /* Stack buttons on mobile initially */
+            .button-group { flex-direction: column; align-items: center; gap: 20px;}
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=sweet-love-123837.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="login-screen">
+        <h1>Hey Ammu! ❤️</h1>
+        <p>I made something special for you.</p>
+        <p>Enter the date (DDMM) to unlock my heart:</p>
+        <div class="login-box">
+            <input type="password" id="password" placeholder="****">
+            <br>
+            <button class="btn-main" onclick="checkPassword()">Unlock</button>
+            <p class="error-msg" id="error-msg">Oops! Try again, beautiful!</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden">
+        
+        <header>
+            <div class="hero-content fade-in" id="hero-text">
+                <h1>Happy Valentine's Day</h1>
+                <h2>Amandeep</h2></h2>
+                <p>Even though we are miles apart,</p>
+                <p>You are always in my heart.</p>
+            </div>
+        </header>
+
+        <div id="counter-section" class="fade-in">
+            <h2>We have been together for:</h2>
+            <div id="timer">
+                <div class="time-box" id="days">0<span>Days</span></div>
+                <div class="time-box" id="hours">0<span>Hours</span></div>
+                <div class="time-box" id="minutes">0<span>Minutes</span></div>
+                <div class="time-box" id="seconds">0<span>Seconds</span></div>
+            </div>
+            <p style="margin-top: 15px; font-style: italic; color: #888;">Since April 7, 2024</p>
+        </div>
+
+        <h2 class="section-title fade-in">Our Story So Far...</h2>
+        <div class="timeline">
+            <div class="container left fade-in">
+                <div class="content">
+                    <p class="date">The Beginning</p>
+                    <h3>First Message</h3>
+                    <p>That one notification changed my life forever. I didn't know then that I was talking to my soulmate.</p>
+                </div>
+            </div>
+            <div class="container right fade-in">
+                <div class="content">
+                    <p class="date">The Connection</p>
+                    <h3>Late Night Calls</h3>
+                    <p>Falling asleep on the phone with you is my favorite thing. Your voice is my home, Ammu.</p>
+                </div>
+            </div>
+            <div class="container left fade-in">
+                <div class="content">
+                    <p class="date">The Realization</p>
+                    <h3>I knew it was You</h3>
+                    <p>Somewhere between the jokes and the deep talks, I realized I don't want a day without you.</p>
+                </div>
+            </div>
+             <div class="container right fade-in">
+                <div class="content">
+                    <p class="date">Coming Soon...</p>
+                    <h3>The Day We Meet</h3>
+                    <p>I am counting down the seconds until I can finally hug you for real. It will be the best day of my life.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title fade-in">Why I Love You, Ammu</h2>
+        <div class="grid-container">
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">✨</span><h3>Reason #1</h3></div></div>
+                    <div class="card-back"><p>You make my world brighter just by existing.</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">😂</span><h3>Reason #2</h3></div></div>
+                    <div class="card-back"><p>Your laugh is my favorite sound in the universe.</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">💌</span><h3>Reason #3</h3></div></div>
+                    <div class="card-back"><p>The way you understand me without me saying a word.</p></div>
+                </div>
+            </div>
+             <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🦋</span><h3>Reason #4</h3></div></div>
+                    <div class="card-back"><p>Even your text messages give me butterflies.</p></div>
+                </div>
+            </div>
+             <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🥺</span><h3>Reason #5</h3></div></div>
+                    <div class="card-back"><p>You are the cutest human being, my Ammu.</p></div>
+                </div>
+            </div>
+             <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🏠</span><h3>Reason #6</h3></div></div>
+                    <div class="card-back"><p>Distance means nothing because you are my home.</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">♥️</span><h3>Reason #7</h3></div></div>
+                    <div class="card-back"><p>You are the most kind hearted human being♥️.</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🌹</span><h3>Reason #8</h3></div></div>
+                    <div class="card-back"><p>You are the most beautiful girl in this world♥️🫂</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🏠</span><h3>Reason #9</h3></div></div>
+                    <div class="card-back"><p>Your lips🥰🤭, those sexy lips🤭</p></div>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <div class="card-inner">
+                    <div class="card-front"><div><span class="icon">🏠</span><h3>Reason #10</h3></div></div>
+                    <div class="card-back"><p>Your Innocence🥹🫂</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="finale fade-in">
+            <h1>Will you be my Valentine, Amandeep?</h1>
+            <p style="margin-top:10px; font-size:1.2rem;">(Forever and Always?)</p>
+            <div class="button-group">
+                <button class="btn-yes" onclick="celebrate()">YES! ❤️</button>
+                <button class="btn-no" id="no-btn" onmouseover="moveButton()" onclick="handleNoClick()">NO</button>
+            </div>
+        </div>
+
+    </div>
+
+    <canvas id="confetti"></canvas>
+
+    <script>
+        // --- CONFIGURATION ---
+        const SECRET_PASS = "0704"; 
+        const MEETING_DATE = new Date("2024-04-07T12:00:00"); 
+
+        // --- TIMER LOGIC ---
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - MEETING_DATE;
+            if (diff < 0) return; 
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            if(document.getElementById("days")) {
+                document.getElementById("days").innerHTML = `${days}<span>Days</span>`;
+                document.getElementById("hours").innerHTML = `${hours}<span>Hours</span>`;
+                document.getElementById("minutes").innerHTML = `${minutes}<span>Minutes</span>`;
+                document.getElementById("seconds").innerHTML = `${seconds}<span>Seconds</span>`;
+            }
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- LOGIN LOGIC ---
+        function checkPassword() {
+            const input = document.getElementById('password').value.trim();
+            if (input === SECRET_PASS) {
+                document.getElementById('login-screen').style.opacity = '0';
+                var audio = document.getElementById("bg-music");
+                if (audio) {
+                    audio.volume = 0.5;
+                    audio.play().catch(error => console.log("Audio autoplay prevented"));
+                }
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-content').classList.remove('hidden');
+                    document.getElementById('hero-text').classList.add('visible');
+                }, 800);
+            } else {
+                const box = document.querySelector('.login-box');
+                box.style.animation = "shake 0.5s";
+                document.getElementById('error-msg').style.display = 'block';
+                setTimeout(() => { box.style.animation = ""; }, 500);
+            }
+        }
+
+        // --- SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+        }, 100);
+
+
+        // --- SMART NO BUTTON LOGIC ---
+        function moveButton() {
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.querySelector('.btn-yes');
+
+            // 1. Get current position of YES button
+            const yesRect = yesBtn.getBoundingClientRect();
+            
+            // 2. Button Dimensions
+            const noWidth = noBtn.offsetWidth;
+            const noHeight = noBtn.offsetHeight;
+
+            // 3. Screen Dimensions
+            const maxX = window.innerWidth - noWidth;
+            const maxY = window.innerHeight - noHeight;
+
+            let newX, newY;
+            let overlap = true;
+            let attempts = 0;
+
+            // 4. Try finding a spot that DOES NOT overlap with YES
+            while(overlap && attempts < 50) {
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
+
+                // Check collision (Simple Box Collision)
+                // We add a 20px "buffer" zone around the Yes button
+                const buffer = 20;
+                
+                if (
+                    newX < yesRect.right + buffer &&
+                    newX + noWidth > yesRect.left - buffer &&
+                    newY < yesRect.bottom + buffer &&
+                    newY + noHeight > yesRect.top - buffer
+                ) {
+                    // It overlaps! Try again.
+                    overlap = true;
+                } else {
+                    // Safe spot found!
+                    overlap = false;
+                }
+                attempts++;
+            }
+
+            // 5. Move the button
+            noBtn.style.position = 'fixed'; // Switch to fixed positioning
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        }
+
+        // Fallback if she manages to click it
+        function handleNoClick() {
+            moveButton(); // Move it again just in case
+            alert("You really thought? Try again beautiful! 🙄❤️");
+        }
+
+        // --- CONFETTI CELEBRATION ---
+        function celebrate() {
+            alert("I knew you'd say yes, Ammu! Happy Valentine's Day! ❤️");
+            const canvas = document.getElementById('confetti');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const pieces = [];
+            const colors = ['#ff4d6d', '#ffb3c1', '#ffd700', '#ffffff'];
+
+            for(let i=0; i<400; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 8 + 4,
+                    speedY: Math.random() * 3 + 2,
+                    speedX: Math.random() * 2 - 1
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    if(p.y > canvas.height) p.y = 0;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes shake {
+                0% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                50% { transform: translateX(10px); }
+                75% { transform: translateX(-10px); }
+                100% { transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>
